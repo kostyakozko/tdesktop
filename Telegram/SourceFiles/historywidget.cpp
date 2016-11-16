@@ -219,6 +219,23 @@ void HistoryInner::enumerateItemsInHistory(History *history, int historytop, Met
                 continue;
             }
 
+            //group posts
+            if (itemIndex > 0 && item->replyToId() == 0 && item->getMedia() == nullptr) {
+                HistoryItem *prev = block->items.at(itemIndex-1);
+            if ((item->date.toTime_t() - prev->date.toTime_t() < 10) && (item->author()->id == prev->author()->id)) {
+                    TextWithEntities currText = item->originalText();
+                    TextWithEntities prevText = prev->originalText();
+                    prevText.text += " " + currText.text;
+                    prevText.entities.append(currText.entities);
+                    prev->setText(prevText);
+                    prev->setPendingInitDimensions();
+                    block->removeItem(item);
+                    item = prev;
+                }
+
+            }
+            --itemIndex;
+
 			int itemtop = blocktop + item->y;
 			int itembottom = itemtop + item->height();
 
@@ -3064,7 +3081,7 @@ HistoryWidget::HistoryWidget(QWidget *parent) : TWidget(parent)
 		connect(audioCapture(), SIGNAL(done(QByteArray,VoiceWaveform,qint32)), this, SLOT(onRecordDone(QByteArray,VoiceWaveform,qint32)));
 	}
 
-	_updateHistoryItems.setSingleShot(true);
+    _updateHistoryItems.setSingleShot(true);
 	connect(&_updateHistoryItems, SIGNAL(timeout()), this, SLOT(onUpdateHistoryItems()));
 
 	_scrollTimer.setSingleShot(false);
