@@ -207,7 +207,18 @@ void HistoryInner::enumerateItemsInHistory(History *history, int historytop, Met
 
 	while (true) {
 		while (itemIndex >= 0) {
-			HistoryItem *item = block->items.at(itemIndex--);
+
+            HistoryItem *item = block->items.at(itemIndex);
+
+            //remove blocked user posts
+            PeerData* user = item->author();
+            App::api()->requestFullPeer(user);
+            if (user->asUser()->isBlocked()) {
+                block->removeItem(item);
+                --itemIndex;
+                continue;
+            }
+
 			int itemtop = blocktop + item->y;
 			int itembottom = itemtop + item->height();
 
