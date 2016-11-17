@@ -220,9 +220,11 @@ void HistoryInner::enumerateItemsInHistory(History *history, int historytop, Met
             }
 
             //group posts
-            if (itemIndex > 0 && item->replyToId() == 0 && item->getMedia() == nullptr) {
+            if (itemIndex > 0 && item->replyToId() == 0 && item->getMedia() == nullptr
+                    && item->author()->id == item->fromOriginal()->id) {
                 HistoryItem *prev = block->items.at(itemIndex-1);
-            if ((item->date.toTime_t() - prev->date.toTime_t() < 10) && (item->author()->id == prev->author()->id)) {
+            if ((item->date.toTime_t() - prev->date.toTime_t() < 10) &&
+                    (item->author()->id == prev->author()->id)) {
                     TextWithEntities currText = item->originalText();
                     TextWithEntities prevText = prev->originalText();
                     prevText.text += " " + currText.text;
