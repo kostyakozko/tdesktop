@@ -128,7 +128,8 @@ In Terminal go to **/home/user/TBuild/Libraries** and run
     tar -xzvf icu4c-58_1-src.tgz
     cd icu
     cd source/
-    chmod +x runConfigureICU Linux --enable-static --disable-shared
+    chmod +x runConfigureICU configure install-sh
+    ./runConfigureICU Linux --enable-static --disable-shared
     make -j4
     sudo make install
     sudo ln -s /usr/local/lib/libicutu.a /usr/lib/libicutu.a
