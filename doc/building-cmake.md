@@ -120,6 +120,22 @@ In Terminal go to **/home/user/TBuild/Libraries** and run
     make
     sudo make install
 
+####libICU
+
+In Terminal go to **/home/user/TBuild/Libraries** and run
+
+    wget http://download.icu-project.org/files/icu4c/58.1/icu4c-58_1-src.tgz
+    tar -xzvf icu4c-58_1-src.tgz
+    cd icu
+    cd source/
+    chmod +x runConfigureICU Linux --enable-static --disable-shared
+    make -j4
+    sudo make install
+    sudo ln -s /usr/local/lib/libicutu.a /usr/lib/libicutu.a
+    sudo ln -s /usr/local/lib/libicui18n.a /usr/lib/libicui18n.a
+    sudo ln -s /usr/local/lib/libicuuc.a /usr/lib/libicuuc.a
+    sudo ln -s /usr/local/lib/libicudata.a /usr/lib/libicudata.a
+
 ####Qt 5.6.2, slightly patched
 
 In Terminal go to **/home/user/TBuild/Libraries** and run
