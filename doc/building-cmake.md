@@ -104,7 +104,7 @@ In Terminal go to **/home/user/TBuild/Libraries** and run
 
     git clone https://github.com/openssl/openssl
     cd openssl
-    git checkout OpenSSL_1_0_1-stable
+    git checkout OpenSSL_1_0_2-stable
     ./config
     make
     sudo make install
