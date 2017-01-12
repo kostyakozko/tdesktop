@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "window/player_wrap_widget.h"
@@ -25,8 +25,8 @@ Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
 
 namespace Window {
 
-PlayerWrapWidget::PlayerWrapWidget(QWidget *parent, base::lambda_unique<void()> updateCallback) : Parent(parent
-	, new Media::Player::Widget(parent)
+PlayerWrapWidget::PlayerWrapWidget(QWidget *parent, base::lambda<void()> &&updateCallback) : Parent(parent
+	, object_ptr<Media::Player::Widget>(parent)
 	, style::margins(0, 0, 0, 0)
 	, std_::move(updateCallback)) {
 }

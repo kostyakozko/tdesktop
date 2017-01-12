@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -24,6 +24,7 @@ namespace Profile {
 
 class CoverWidget;
 class BlockWidget;
+class SectionMemento;
 
 class InnerWidget final : public TWidget {
 	Q_OBJECT
@@ -41,12 +42,15 @@ public:
 	}
 
 	// Updates the area that is visible inside the scroll container.
-	void setVisibleTopBottom(int visibleTop, int visibleBottom);
+	void setVisibleTopBottom(int visibleTop, int visibleBottom) override;
 
 	// Profile fixed top bar should use this flag to decide
 	// if it shows "Share contact" button or not.
 	// It should show it only if it is hidden in the cover.
 	bool shareContactButtonShown() const;
+
+	void saveState(SectionMemento *memento) const;
+	void restoreState(const SectionMemento *memento);
 
 	void showFinished();
 
@@ -98,7 +102,7 @@ private:
 	int _visibleTop = 0;
 	int _visibleBottom = 0;
 
-	ChildWidget<CoverWidget> _cover;
+	object_ptr<CoverWidget> _cover;
 
 	int _blocksLeft = 0; // Caching countBlocksLeft() result.
 	int _blocksTop = 0;
@@ -111,6 +115,7 @@ private:
 	QList<Block> _blocks;
 
 	Mode _mode = Mode::OneColumn;
+
 };
 
 } // namespace Profile

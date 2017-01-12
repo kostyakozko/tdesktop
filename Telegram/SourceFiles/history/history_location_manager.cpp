@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "history/history_location_manager.h"
@@ -81,7 +81,7 @@ void LocationManager::init() {
 		delete notLoadedPlaceholder;
 	}
 	auto data = QImage(cIntRetinaFactor(), cIntRetinaFactor(), QImage::Format_ARGB32_Premultiplied);
-	data.fill(st::white->c);
+	data.fill(st::imageBgTransparent->c);
 	data.setDevicePixelRatio(cRetinaFactor());
 	notLoadedPlaceholder = new ImagePtr(App::pixmapFromImageInPlace(std_::move(data)), "GIF");
 }

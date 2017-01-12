@@ -16,9 +16,13 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
+
+namespace Ui {
+class FlatTextarea;
+} // namespace Ui
 
 namespace Data {
 
@@ -35,12 +39,8 @@ struct Draft {
 		, previewCancelled(previewCancelled)
 		, saveRequestId(saveRequestId) {
 	}
-	Draft(const FlatTextarea &field, MsgId msgId, bool previewCancelled, mtpRequestId saveRequestId = 0)
-		: textWithTags(field.getTextWithTags())
-		, msgId(msgId)
-		, cursor(field)
-		, previewCancelled(previewCancelled) {
-	}
+	Draft(const Ui::FlatTextarea *field, MsgId msgId, bool previewCancelled, mtpRequestId saveRequestId = 0);
+
 	QDateTime date;
 	TextWithTags textWithTags;
 	MsgId msgId = 0; // replyToId for message draft, editMsgId for edit draft

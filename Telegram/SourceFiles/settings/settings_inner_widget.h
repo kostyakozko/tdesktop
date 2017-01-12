@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -38,12 +38,9 @@ public:
 	}
 
 	// Updates the area that is visible inside the scroll container.
-	void setVisibleTopBottom(int visibleTop, int visibleBottom);
+	void setVisibleTopBottom(int visibleTop, int visibleBottom) override;
 
 	void showFinished();
-
-signals:
-	void heightUpdated();
 
 private slots:
 	void onBlockHeightUpdated();
@@ -59,7 +56,7 @@ private:
 	// Returns the new height value.
 	int refreshBlocksPositions(int newWidth);
 
-	ChildWidget<CoverWidget> _cover = { nullptr };
+	object_ptr<CoverWidget> _cover = { nullptr };
 	QList<BlockWidget*> _blocks;
 
 	UserData *_self = nullptr;

@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -30,9 +30,7 @@ struct Options {
 	QStringList includePaths = { "." };
 	QString outputPath = ".";
 	QString inputPath;
-	bool rebuildDependencies = false;
-	bool skipStyles = false;
-	bool skipSprites = false;
+	bool isPalette = false;
 };
 
 // Parsing failed if inputPath is empty in the result.

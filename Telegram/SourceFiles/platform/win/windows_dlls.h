@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -62,6 +62,9 @@ extern f_OpenAs_RunDLL OpenAs_RunDLL;
 
 typedef HRESULT (FAR STDAPICALLTYPE *f_SHQueryUserNotificationState)(QUERY_USER_NOTIFICATION_STATE *pquns);
 extern f_SHQueryUserNotificationState SHQueryUserNotificationState;
+
+typedef void (FAR STDAPICALLTYPE *f_SHChangeNotify)(LONG wEventId, UINT uFlags, __in_opt LPCVOID dwItem1, __in_opt LPCVOID dwItem2);
+extern f_SHChangeNotify SHChangeNotify;
 
 typedef HRESULT (FAR STDAPICALLTYPE *f_SetCurrentProcessExplicitAppUserModelID)(__in PCWSTR AppID);
 extern f_SetCurrentProcessExplicitAppUserModelID SetCurrentProcessExplicitAppUserModelID;

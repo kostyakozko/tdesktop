@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "settings.h"
@@ -61,7 +61,6 @@ bool gRestartingUpdate = false, gRestarting = false, gRestartingToSettings = fal
 int32 gLastUpdateCheck = 0;
 bool gNoStartUpdate = false;
 bool gStartToSettings = false;
-DBIDefaultAttach gDefaultAttach = dbidaDocument;
 bool gReplaceEmojis = true;
 
 bool gCtrlEnter = false;
@@ -86,7 +85,7 @@ RecentStickerPreload gRecentStickersPreload;
 RecentStickerPack gRecentStickers;
 
 SavedGifs gSavedGifs;
-uint64 gLastSavedGifsUpdate = 0;
+TimeMs gLastSavedGifsUpdate = 0;
 bool gShowingSavedGifs = false;
 
 RecentHashtagPack gRecentWriteHashtags, gRecentSearchHashtags;
@@ -95,7 +94,7 @@ RecentInlineBots gRecentInlineBots;
 
 bool gPasswordRecovered = false;
 int32 gPasscodeBadTries = 0;
-uint64 gPasscodeLastTry = 0;
+TimeMs gPasscodeLastTry = 0;
 
 int32 gLang = -2; // auto
 QString gLangFile;

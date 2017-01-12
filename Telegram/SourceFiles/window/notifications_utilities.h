@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -30,7 +30,11 @@ class CachedUserpics : public QObject {
 	Q_OBJECT
 
 public:
-	CachedUserpics();
+	enum class Type {
+		Rounded,
+		Circled,
+	};
+	CachedUserpics(Type type);
 
 	QString get(const StorageKey &key, PeerData *peer);
 
@@ -41,10 +45,11 @@ private slots:
 
 private:
 	void clearInMs(int ms);
-	uint64 clear(uint64 ms);
+	TimeMs clear(TimeMs ms);
 
+	Type _type = Type::Rounded;
 	struct Image {
-		uint64 until;
+		TimeMs until;
 		QString path;
 	};
 	using Images = QMap<StorageKey, Image>;

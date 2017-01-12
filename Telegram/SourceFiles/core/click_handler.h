@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -176,5 +176,20 @@ public:
 
 protected:
 	virtual void onClickImpl() const = 0;
+
+};
+
+class LambdaClickHandler : public ClickHandler {
+public:
+	LambdaClickHandler(base::lambda<void()> &&handler) : _handler(std_::move(handler)) {
+	}
+	void onClick(Qt::MouseButton button) const override final {
+		if (button == Qt::LeftButton && _handler) {
+			_handler();
+		}
+	}
+
+private:
+	base::lambda<void()> _handler;
 
 };

@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "profile/profile_section_memento.h"
@@ -25,11 +25,10 @@ Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
 
 namespace Profile {
 
-Window::SectionWidget *SectionMemento::createWidget(QWidget *parent, const QRect &geometry) const {
-	auto result = new Widget(parent, _peer);
-	result->setGeometry(geometry);
-	result->setInternalState(this);
-	return result;
+object_ptr<Window::SectionWidget> SectionMemento::createWidget(QWidget *parent, const QRect &geometry) const {
+	auto result = object_ptr<Widget>(parent, _peer);
+	result->setInternalState(geometry, this);
+	return std_::move(result);
 }
 
 } // namespace Profile

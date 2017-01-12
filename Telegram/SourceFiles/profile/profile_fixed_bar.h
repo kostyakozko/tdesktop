@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -61,9 +61,7 @@ private slots:
 	void onEditContact();
 	void onShareContact();
 	void onDeleteContact();
-	void onDeleteContactSure();
 	void onLeaveGroup();
-	void onLeaveGroupSure();
 
 private:
 	void notifyPeerUpdate(const Notify::PeerUpdate &update);
@@ -94,7 +92,7 @@ private:
 	ChannelData *_peerChannel;
 	ChannelData *_peerMegagroup;
 
-	ChildWidget<BackButton> _backButton;
+	object_ptr<BackButton> _backButton;
 
 	int _currentAction = 0;
 	struct RightAction {

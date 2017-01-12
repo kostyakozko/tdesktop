@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -178,11 +178,11 @@ private:
 
 	LangLoader(const LangLoader &);
 	LangLoader &operator=(const LangLoader &);
+
 };
 
 class Translator : public QTranslator {
 public:
-
 	QString translate(const char *context, const char *sourceText, const char *disambiguation = 0, int n = -1) const override;
 
 };

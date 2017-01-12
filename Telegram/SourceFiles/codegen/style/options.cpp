@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #include "codegen/style/options.h"
 
@@ -41,24 +41,12 @@ using common::logError;
 
 Options parseOptions() {
 	Options result;
-	auto args(QCoreApplication::instance()->arguments());
+	auto args = QCoreApplication::instance()->arguments();
 	for (int i = 1, count = args.size(); i < count; ++i) { // skip first
-		const auto &arg(args.at(i));
-
-		// Rebuild all dependencies
-		if (arg == "--rebuild") {
-			result.rebuildDependencies = true;
-
-		// Skip generating style modules
-		} else if (arg == "--skip-styles") {
-			result.skipStyles = true;
-
-		// Skip generating sprite_125x.png and sprite_150x.png
-		} else if (arg == "--skip-sprites") {
-			result.skipSprites = true;
+		auto &arg = args.at(i);
 
 		// Include paths
-		} else if (arg == "-I") {
+		if (arg == "-I") {
 			if (++i == count) {
 				logError(kErrorIncludePathExpected, "Command Line") << "include path expected after -I";
 				return Options();
@@ -104,6 +92,7 @@ Options parseOptions() {
 		logError(kErrorInputPathExpected, "Command Line") << "input path expected";
 		return Options();
 	}
+	result.isPalette = (QFileInfo(result.inputPath).suffix() == "palette");
 	return result;
 }
 

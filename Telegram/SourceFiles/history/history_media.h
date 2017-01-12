@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -64,7 +64,7 @@ public:
 		_width = qMin(width, _maxw);
 		return _height;
 	}
-	virtual void draw(Painter &p, const QRect &r, TextSelection selection, uint64 ms) const = 0;
+	virtual void draw(Painter &p, const QRect &r, TextSelection selection, TimeMs ms) const = 0;
 	virtual HistoryTextState getState(int x, int y, HistoryStateRequest request) const = 0;
 
 	// if we are in selecting items mode perhaps we want to
@@ -167,6 +167,9 @@ public:
 	}
 	bool isBubbleBottom() const {
 		return (_inBubbleState == MediaInBubbleState::Bottom) || (_inBubbleState == MediaInBubbleState::None);
+	}
+	virtual bool skipBubbleTail() const {
+		return false;
 	}
 
 	// Sometimes click on media in message is overloaded by the messsage:

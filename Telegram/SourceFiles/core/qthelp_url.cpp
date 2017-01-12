@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "core/qthelp_url.h"
@@ -43,7 +43,10 @@ QMap<QString, QString> url_parse_params(const QString &params, UrlParamNameTrans
 				paramName = param.mid(0, separatorPosition);
 				paramValue = url_decode(param.mid(separatorPosition + 1));
 			}
-			result.insert(transformParamName(paramName), paramValue);
+			paramName = transformParamName(paramName);
+			if (!result.contains(paramName)) {
+				result.insert(paramName, paramValue);
+			}
 		}
 	}
 	return result;

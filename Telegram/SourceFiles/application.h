@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -47,6 +47,8 @@ public slots:
 
 	void startApplication(); // will be done in exec()
 	void closeApplication(); // will be done in aboutToQuit()
+
+	void onMainThreadTask();
 
 private:
 	typedef QPair<QLocalSocket*, QByteArray> LocalClient;
@@ -159,9 +161,6 @@ public:
 	bool isPhotoUpdating(const PeerId &peer);
 	void cancelPhotoUpdate(const PeerId &peer);
 
-	void mtpPause();
-	void mtpUnpause();
-
 	void selfPhotoCleared(const MTPUserProfilePhoto &result);
 	void chatPhotoCleared(PeerId peer, const MTPUpdates &updates);
 	void selfPhotoDone(const MTPphotos_Photo &result);
@@ -169,7 +168,7 @@ public:
 	bool peerPhotoFail(PeerId peerId, const RPCError &e);
 	void peerClearPhoto(PeerId peer);
 
-	void writeUserConfigIn(uint64 ms);
+	void writeUserConfigIn(TimeMs ms);
 
 	void killDownloadSessionsStart(int32 dc);
 	void killDownloadSessionsStop(int32 dc);
@@ -185,9 +184,6 @@ signals:
 	void adjustSingleTimers();
 
 public slots:
-
-	void doMtpUnpause();
-
 	void photoUpdated(const FullMsgId &msgId, bool silent, const MTPInputFile &file);
 
 	void onSwitchDebugMode();
@@ -204,18 +200,17 @@ public slots:
 	void call_handleObservables();
 
 private:
+	void loadLanguage();
 
 	QMap<FullMsgId, PeerId> photoUpdates;
 
-	QMap<int32, uint64> killDownloadSessionTimes;
+	QMap<int32, TimeMs> killDownloadSessionTimes;
 	SingleTimer killDownloadSessionsTimer;
 
-	uint64 _lastActionTime;
+	TimeMs _lastActionTime = 0;
 
-	MainWindow *_window;
-	FileUploader *_uploader;
-	Translator *_translator;
-
-	SingleTimer _mtpUnpauseTimer;
+	MainWindow *_window = nullptr;
+	FileUploader *_uploader = nullptr;
+	Translator *_translator = nullptr;
 
 };

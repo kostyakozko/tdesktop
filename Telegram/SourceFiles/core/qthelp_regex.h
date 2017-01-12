@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -27,6 +27,14 @@ public:
 	RegularExpressionMatch(QRegularExpressionMatch &&match) : data_(std_::move(match)) {
 	}
 	RegularExpressionMatch(RegularExpressionMatch &&other) : data_(std_::move(other.data_)) {
+	}
+	RegularExpressionMatch &operator=(QRegularExpressionMatch &&match) {
+		data_ = std_::move(match);
+		return *this;
+	}
+	RegularExpressionMatch &operator=(RegularExpressionMatch &&other) {
+		data_ = std_::move(other.data_);
+		return *this;
 	}
 	QRegularExpressionMatch *operator->() {
 		return &data_;

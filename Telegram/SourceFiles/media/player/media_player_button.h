@@ -16,11 +16,11 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
-#include "ui/button.h"
+#include "ui/abstract_button.h"
 #include "styles/style_media_player.h"
 
 namespace Media {
@@ -33,8 +33,7 @@ public:
 		Pause,
 		Cancel,
 	};
-	using UpdateCallback = FloatAnimation::Callback;
-	PlayButtonLayout(const style::MediaPlayerButton &st, UpdateCallback &&callback);
+	PlayButtonLayout(const style::MediaPlayerButton &st, base::lambda<void()> &&callback);
 
 	void setState(State state);
 	void finishTransform();
@@ -54,10 +53,10 @@ private:
 	State _state = State::Play;
 	State _oldState = State::Play;
 	State _nextState = State::Play;
-	FloatAnimation _transformProgress;
+	Animation _transformProgress;
 	bool _transformBackward = false;
 
-	UpdateCallback _callback;
+	base::lambda<void()> _callback;
 
 };
 

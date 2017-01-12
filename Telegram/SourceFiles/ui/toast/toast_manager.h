@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -51,9 +51,9 @@ private:
 	void startNextHideTimer();
 
 	SingleTimer _hideTimer;
-	uint64 _nextHide = 0;
+	TimeMs _nextHide = 0;
 
-	QMultiMap<uint64, Instance*> _toastByHideTime;
+	QMultiMap<TimeMs, Instance*> _toastByHideTime;
 	QMap<Widget*, Instance*> _toastByWidget;
 	QList<Instance*> _toasts;
 

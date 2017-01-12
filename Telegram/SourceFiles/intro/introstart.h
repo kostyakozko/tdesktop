@@ -16,29 +16,27 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
 #include "intro/introwidget.h"
-#include "ui/flatlabel.h"
 
-class IntroStart final : public IntroStep {
+namespace Ui {
+class FlatLabel;
+class LinkButton;
+class RoundButton;
+} // namespace Ui
+
+namespace Intro {
+
+class StartWidget : public Widget::Step {
 public:
+	StartWidget(QWidget *parent, Widget::Data *data);
 
-	IntroStart(IntroWidget *parent);
+	void submit() override;
+	QString nextButtonText() const override;
 
-	void paintEvent(QPaintEvent *e) override;
-	void resizeEvent(QResizeEvent *e) override;
-
-	void onSubmit() override;
-
-private:
-
-	FlatLabel _intro;
-
-	LinkButton _changeLang;
-
-	FlatButton _next;
-	int32 _headerWidth;
 };
+
+} // namespace Intro

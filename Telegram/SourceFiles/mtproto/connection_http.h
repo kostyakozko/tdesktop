@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -30,7 +30,6 @@ class HTTPConnection : public AbstractConnection {
 	Q_OBJECT
 
 public:
-
 	HTTPConnection(QThread *thread);
 
 	void sendData(mtpBuffer &buffer) override;
@@ -46,15 +45,13 @@ public:
 
 	QString transport() const override;
 
-	public slots:
-
+public slots:
 	void requestFinished(QNetworkReply *reply);
 
 	static mtpBuffer handleResponse(QNetworkReply *reply);
 	static bool handleError(QNetworkReply *reply); // returnes "maybe bad key"
 
 private:
-
 	enum Status {
 		WaitingHttp = 0,
 		UsingHttp,

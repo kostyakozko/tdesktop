@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -34,23 +34,24 @@ public:
 	}
 
 	void start(float64 prg);
-	void update(float64 prg, bool finished, uint64 ms);
+	void update(float64 prg, bool finished, TimeMs ms);
 	void stop();
 
-	void step(uint64 ms);
+	void step(TimeMs ms);
 	void step() {
 		step(getms());
 	}
 
-	void draw(Painter &p, const QRect &inner, int32 thickness, const style::color &color);
+	void draw(Painter &p, const QRect &inner, int32 thickness, style::color color);
 
 private:
-	uint64 _firstStart = 0;
-	uint64 _lastStart = 0;
-	uint64 _lastTime = 0;
+	TimeMs _firstStart = 0;
+	TimeMs _lastStart = 0;
+	TimeMs _lastTime = 0;
 	float64 _opacity = 0.;
-	anim::ivalue a_arcEnd, a_arcStart;
-	Animation _animation;
+	anim::value a_arcEnd;
+	anim::value a_arcStart;
+	BasicAnimation _animation;
 
 };
 

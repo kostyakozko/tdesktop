@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "platform/linux/file_dialog_linux.h"
@@ -131,8 +131,7 @@ GtkDialog *QGtkDialog::gtkDialog() const {
 
 void QGtkDialog::exec() {
 	if (auto w = App::wnd()) {
-		w->onReActivate();
-		QTimer::singleShot(200, w, SLOT(onReActivate()));
+		w->reActivateWindow();
 	}
 	if (modality() == Qt::ApplicationModal) {
 		// block input to the whole app, including other GTK dialogs

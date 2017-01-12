@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -115,7 +115,13 @@ class HiddenUrlClickHandler : public UrlClickHandler {
 public:
 	HiddenUrlClickHandler(QString url) : UrlClickHandler(url, false) {
 	}
-	void onClick(Qt::MouseButton button) const override;
+
+	static void doOpen(QString url);
+	void onClick(Qt::MouseButton button) const override {
+		if (button == Qt::LeftButton || button == Qt::MiddleButton) {
+			doOpen(url());
+		}
+	}
 
 	QString getExpandedLinkText(ExpandLinksMode mode, const QStringRef &textPart) const override;
 	TextWithEntities getExpandedLinkTextWithEntities(ExpandLinksMode mode, int entityOffset, const QStringRef &textPart) const override;

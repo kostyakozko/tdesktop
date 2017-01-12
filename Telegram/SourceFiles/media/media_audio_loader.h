@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -28,7 +28,7 @@ public:
 	virtual bool check(const FileLocation &file, const QByteArray &data);
 
 	virtual bool open(qint64 &position) = 0;
-	virtual int64 duration() = 0;
+	virtual TimeMs duration() = 0;
 	virtual int32 frequency() = 0;
 	virtual int32 format() = 0;
 

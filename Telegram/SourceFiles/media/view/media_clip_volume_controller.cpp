@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "media/view/media_clip_volume_controller.h"
@@ -46,10 +46,16 @@ void VolumeController::paintEvent(QPaintEvent *e) {
 	int32 right = left + st::mediaviewVolumeIcon.width();
 
 	if (mid > left) {
-		auto over = _a_over.current(getms(), _over ? 1. : 0.);
-		p.setOpacity(over * st::mediaviewActiveOpacity + (1. - over) * st::mediaviewInactiveOpacity);
 		p.setClipRect(rtlrect(left, top, mid - left, st::mediaviewVolumeIcon.height(), width()));
-		st::mediaviewVolumeOnIcon.paint(p, QPoint(left, top), width());
+		auto over = _a_over.current(getms(), _over ? 1. : 0.);
+		if (over < 1.) {
+			st::mediaviewVolumeOnIcon.paint(p, QPoint(left, top), width());
+		}
+		if (over > 0.) {
+			p.setOpacity(over);
+			st::mediaviewVolumeOnIconOver.paint(p, QPoint(left, top), width());
+			p.setOpacity(1.);
+		}
 	}
 	if (right > mid) {
 		p.setClipRect(rtlrect(mid, top, right - mid, st::mediaviewVolumeIcon.height(), width()));

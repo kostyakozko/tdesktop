@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "media/media_clip_qtgif.h"
@@ -28,7 +28,7 @@ namespace internal {
 QtGifReaderImplementation::QtGifReaderImplementation(FileLocation *location, QByteArray *data) : ReaderImplementation(location, data) {
 }
 
-ReaderImplementation::ReadResult QtGifReaderImplementation::readFramesTill(int64 frameMs, uint64 systemMs) {
+ReaderImplementation::ReadResult QtGifReaderImplementation::readFramesTill(TimeMs frameMs, TimeMs systemMs) {
 	if (!_frame.isNull() && _frameTime > frameMs) {
 		return ReadResult::Success;
 	}
@@ -43,12 +43,12 @@ ReaderImplementation::ReadResult QtGifReaderImplementation::readFramesTill(int64
 	return readResult;
 }
 
-int64 QtGifReaderImplementation::frameRealTime() const {
+TimeMs QtGifReaderImplementation::frameRealTime() const {
 	return _frameRealTime;
 }
 
-uint64 QtGifReaderImplementation::framePresentationTime() const {
-	return static_cast<uint64>(qMax(_frameTime, 0LL));
+TimeMs QtGifReaderImplementation::framePresentationTime() const {
+	return qMax(_frameTime, 0LL);
 }
 
 ReaderImplementation::ReadResult QtGifReaderImplementation::readNextFrame() {
@@ -95,7 +95,7 @@ bool QtGifReaderImplementation::renderFrame(QImage &to, bool &hasAlpha, const QS
 	return true;
 }
 
-int64 QtGifReaderImplementation::durationMs() const {
+TimeMs QtGifReaderImplementation::durationMs() const {
 	return 0; // not supported
 }
 

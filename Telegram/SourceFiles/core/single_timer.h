@@ -16,23 +16,22 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
 #include "core/basic_types.h"
-#include "core/lambda_wrap.h"
 
 class SingleTimer : public QTimer { // single shot timer with check
 	Q_OBJECT
 
 public:
-	SingleTimer();
+	SingleTimer(QObject *parent = nullptr);
 
 	void setSingleShot(bool); // is not available
 	void start(); // is not available
 
-	void setTimeoutHandler(base::lambda_unique<void()> &&handler);
+	void setTimeoutHandler(base::lambda<void()> &&handler);
 
 public slots:
 	void start(int msec);
@@ -43,8 +42,8 @@ private slots:
 	void onTimeout();
 
 private:
-	uint64 _finishing = 0;
+	TimeMs _finishing = 0;
 	bool _inited = false;
-	base::lambda_unique<void()> _handler;
+	base::lambda<void()> _handler;
 
 };

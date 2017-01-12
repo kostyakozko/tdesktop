@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -27,68 +27,21 @@ Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
 #include <QtGui/QCursor>
 #include <QtGui/QFont>
 
-#include "ui/animation.h"
 #include "ui/style/style_core_font.h"
 #include "ui/style/style_core_color.h"
 #include "ui/style/style_core_icon.h"
 
 namespace style {
-namespace internal {
-
-void loadSprite();
-int spriteWidth();
-void destroySprite();
-
-class Sprite {
-public:
-	Sprite() {
-	}
-	Sprite(int left, int top, int width, int height)
-		: _rect(rtl() ? (spriteWidth() - left * cIntRetinaFactor() - width * cIntRetinaFactor()) : left * cIntRetinaFactor(),
-				top * cIntRetinaFactor(),
-				width * cIntRetinaFactor(),
-				height * cIntRetinaFactor()) {
-	}
-	int pxWidth() const {
-		return _rect.width() / cIntRetinaFactor();
-	}
-	int pxHeight() const {
-		return _rect.height() / cIntRetinaFactor();
-	}
-	QSize pxSize() const {
-		return _rect.size() / cIntRetinaFactor();
-	}
-	QRect rect() const {
-		return _rect;
-	}
-	bool isEmpty() const {
-		return _rect.isEmpty();
-	}
-
-private:
-	QRect _rect;
-
-};
-inline bool operator==(const Sprite &a, const Sprite &b) {
-	return a.rect() == b.rect();
-}
-inline bool operator!=(const Sprite &a, const Sprite &b) {
-	return !(a == b);
-}
-
-} // namespace internal
 
 using string = QString;
 using rect = QRect;
 using point = QPoint;
 using size = QSize;
-using transition = anim::transition;
 using cursor = Qt::CursorShape;
 using align = Qt::Alignment;
 using margins = QMargins;
 using font = internal::Font;
 using color = internal::Color;
-using sprite = internal::Sprite;
 using icon = internal::Icon;
 
 static constexpr cursor cur_default = Qt::ArrowCursor;
@@ -110,7 +63,5 @@ static const align al_bottom = (Qt::AlignBottom | Qt::AlignHCenter);
 static const align al_bottomleft = (Qt::AlignBottom | Qt::AlignLeft);
 static const align al_left = (Qt::AlignVCenter | Qt::AlignLeft);
 static const align al_center = (Qt::AlignVCenter | Qt::AlignHCenter);
-
-const QPixmap &spritePixmap();
 
 } // namespace style

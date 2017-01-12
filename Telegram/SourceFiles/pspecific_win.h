@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -36,7 +36,7 @@ void psDeleteDir(const QString &dir);
 
 void psUserActionDone();
 bool psIdleSupported();
-uint64 psIdleTime();
+TimeMs psIdleTime();
 
 QStringList psInitLogs();
 void psClearInitLogs();
@@ -74,9 +74,6 @@ QAbstractNativeEventFilter *psNativeEventFilter();
 void psNewVersion();
 
 void psUpdateOverlayed(TWidget *widget);
-inline QString psConvertFileUrl(const QUrl &url) {
-	return url.toLocalFile();
-}
 inline QByteArray psDownloadPathBookmark(const QString &path) {
 	return QByteArray();
 }

@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -45,13 +45,13 @@ private:
 	void desktopEnabledUpdated();
 	void viewParamUpdated();
 
-	ChildWidget<Checkbox> _desktopNotifications = { nullptr };
-	ChildWidget<Ui::WidgetSlideWrap<Checkbox>> _showSenderName = { nullptr };
-	ChildWidget<Ui::WidgetSlideWrap<Checkbox>> _showMessagePreview = { nullptr };
-	ChildWidget<Checkbox> _nativeNotifications = { nullptr };
-	ChildWidget<Checkbox> _playSound = { nullptr };
-	ChildWidget<Checkbox> _includeMuted = { nullptr };
-	ChildWidget<Ui::WidgetSlideWrap<LinkButton>> _advanced = { nullptr };
+	object_ptr<Ui::Checkbox> _desktopNotifications = { nullptr };
+	object_ptr<Ui::WidgetSlideWrap<Ui::Checkbox>> _showSenderName = { nullptr };
+	object_ptr<Ui::WidgetSlideWrap<Ui::Checkbox>> _showMessagePreview = { nullptr };
+	object_ptr<Ui::Checkbox> _nativeNotifications = { nullptr };
+	object_ptr<Ui::Checkbox> _playSound = { nullptr };
+	object_ptr<Ui::Checkbox> _includeMuted = { nullptr };
+	object_ptr<Ui::WidgetSlideWrap<Ui::LinkButton>> _advanced = { nullptr };
 
 };
 

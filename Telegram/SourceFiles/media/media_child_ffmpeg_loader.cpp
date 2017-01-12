@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "media/media_child_ffmpeg_loader.h"
@@ -167,10 +167,8 @@ AudioPlayerLoader::ReadResult ChildFFMpegLoader::readFromReadyFrame(QByteArray &
 		int64_t dstSamples = av_rescale_rnd(swr_get_delay(_swrContext, _srcRate) + _frame->nb_samples, _dstRate, _srcRate, AV_ROUND_UP);
 		if (dstSamples > _maxResampleSamples) {
 			_maxResampleSamples = dstSamples;
-			av_free(_dstSamplesData[0]);
-
+			av_freep(&_dstSamplesData[0]);
 			if ((res = av_samples_alloc(_dstSamplesData, 0, AudioToChannels, _maxResampleSamples, AudioToFormat, 1)) < 0) {
-				_dstSamplesData[0] = 0;
 				char err[AV_ERROR_MAX_STRING_SIZE] = { 0 };
 				LOG(("Audio Error: Unable to av_samples_alloc for file '%1', data size '%2', error %3, %4").arg(file.name()).arg(data.size()).arg(res).arg(av_make_error_string(err, sizeof(err), res)));
 				return ReadResult::Error;

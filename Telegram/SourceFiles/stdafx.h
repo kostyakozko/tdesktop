@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 
 #define NOMINMAX // no min() and max() macro declarations
@@ -59,20 +59,17 @@ Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
 #include "core/basic_types.h"
 #include "logs.h"
 #include "core/utils.h"
+#include "core/lambda.h"
 #include "config.h"
 
 #include "mtproto/facade.h"
 
 #include "ui/style/style_core.h"
-#include "styles/style_basic_types.h"
+#include "styles/palette.h"
 #include "styles/style_basic.h"
 
-#include "ui/twidget.h"
 #include "ui/animation.h"
-#include "ui/flatinput.h"
-#include "ui/flattextarea.h"
-#include "ui/flatbutton.h"
-#include "ui/scrollarea.h"
+#include "ui/twidget.h"
 #include "ui/images.h"
 #include "ui/text/text.h"
 

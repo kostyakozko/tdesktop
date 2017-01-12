@@ -13,7 +13,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -37,7 +37,7 @@ void psDeleteDir(const QString &dir);
 
 void psUserActionDone();
 bool psIdleSupported();
-uint64 psIdleTime();
+TimeMs psIdleTime();
 
 QStringList psInitLogs();
 void psClearInitLogs();
@@ -74,9 +74,6 @@ QAbstractNativeEventFilter *psNativeEventFilter();
 void psNewVersion();
 
 void psUpdateOverlayed(QWidget *widget);
-inline QString psConvertFileUrl(const QUrl &url) {
-	return url.toLocalFile();
-}
 inline QByteArray psDownloadPathBookmark(const QString &path) {
 	return QByteArray();
 }

@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "platform/linux/notifications_manager_linux.h"
@@ -266,6 +266,10 @@ void finish() {
 
 class Manager::Impl {
 public:
+	using Type = Window::Notifications::CachedUserpics::Type;
+	Impl(Type type) : _cachedUserpics(type) {
+	}
+
 	bool init();
 
 	void showNotification(PeerData *peer, MsgId msgId, const QString &title, const QString &subtitle, const QString &msg, bool hideNameAndPhoto, bool hideReplyButton);
@@ -480,7 +484,7 @@ void Manager::Impl::clearNotification(PeerId peerId, MsgId msgId) {
 	showNextNotification();
 }
 
-Manager::Manager() : _impl(std_::make_unique<Impl>()) {
+Manager::Manager() : _impl(std_::make_unique<Impl>(Impl::Type::Rounded)) {
 }
 
 bool Manager::init() {

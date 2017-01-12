@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -27,19 +27,14 @@ namespace Notifications {
 
 inline void defaultNotificationShown(QWidget *widget) {
 }
+
 inline bool skipAudio() {
 	return false;
 }
+
 inline bool skipToast() {
 	return false;
 }
-
-class Manager;
-
-void start();
-Manager *manager();
-bool supported();
-void finish();
 
 class Manager : public Window::Notifications::NativeManager {
 public:

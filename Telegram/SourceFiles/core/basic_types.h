@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -26,6 +26,7 @@ Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
 
 #include <QtCore/QReadWriteLock>
 
+#include "core/build_config.h"
 #include "core/stl_subset.h"
 #include "core/ordered_set.h"
 
@@ -65,9 +66,3 @@ friend Q_DECL_CONSTEXPR QFlags<Flags::enum_type> operator|(Flags::enum_type f1, 
 Q_DECLARE_FRIEND_INCOMPATIBLE_FLAGS(Flags)
 
 #endif // OS_MAC_OLD
-
-// using for_const instead of plain range-based for loop to ensure usage of const_iterator
-// it is important for the copy-on-write Qt containers
-// if you have "QVector<T*> v" then "for (T * const p : v)" will still call QVector::detach(),
-// while "for_const (T *p, v)" won't and "for_const (T *&p, v)" won't compile
-#define for_const(range_declaration, range_expression) for (range_declaration : std_::as_const(range_expression))

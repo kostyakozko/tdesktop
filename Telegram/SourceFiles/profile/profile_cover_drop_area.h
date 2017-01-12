@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -28,7 +28,7 @@ public:
 
 	void showAnimated();
 
-	using HideFinishCallback = base::lambda_unique<void(CoverDropArea*)>;
+	using HideFinishCallback = base::lambda<void(CoverDropArea*)>;
 	void hideAnimated(HideFinishCallback &&callback);
 
 	bool hiding() const {
@@ -45,7 +45,7 @@ private:
 	int _titleWidth, _subtitleWidth;
 
 	QPixmap _cache;
-	FloatAnimation _a_appearance;
+	Animation _a_appearance;
 	bool _hiding = false;
 	HideFinishCallback _hideFinishCallback;
 

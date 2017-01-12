@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "settings/settings_notifications_widget.h"
@@ -25,7 +25,8 @@ Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
 #include "lang.h"
 #include "localstorage.h"
 #include "ui/effects/widget_slide_wrap.h"
-#include "ui/flatcheckbox.h"
+#include "ui/widgets/checkbox.h"
+#include "ui/widgets/buttons.h"
 #include "mainwindow.h"
 #include "window/notifications_manager.h"
 #include "boxes/notifications_box.h"
@@ -172,7 +173,7 @@ void NotificationsWidget::onNativeNotifications() {
 }
 
 void NotificationsWidget::onAdvanced() {
-	Ui::showLayer(new NotificationsBox());
+	Ui::show(Box<NotificationsBox>());
 }
 
 void NotificationsWidget::onPlaySound() {

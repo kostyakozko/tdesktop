@@ -16,7 +16,7 @@ In addition, as a special exception, the copyright holders give permission
 to link the code of portions of this program with the OpenSSL library.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014-2016 John Preston, https://desktop.telegram.org
+Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "platform/win/notifications_manager_win.h"
@@ -338,6 +338,11 @@ void finish() {
 
 class Manager::Impl {
 public:
+	using Type = Window::Notifications::CachedUserpics::Type;
+
+	Impl(Type type) : _cachedUserpics(type) {
+	}
+
 	bool showNotification(PeerData *peer, MsgId msgId, const QString &title, const QString &subtitle, const QString &msg, bool hideNameAndPhoto, bool hideReplyButton);
 	void clearAll();
 	void clearFromHistory(History *history);
@@ -506,7 +511,7 @@ bool Manager::Impl::showNotification(PeerData *peer, MsgId msgId, const QString 
 	return true;
 }
 
-Manager::Manager() : _impl(std_::make_unique<Impl>()) {
+Manager::Manager() : _impl(std_::make_unique<Impl>(Impl::Type::Rounded)) {
 }
 
 void Manager::clearNotification(PeerId peerId, MsgId msgId) {
@@ -576,7 +581,7 @@ void queryUserNotificationState() {
 }
 
 static constexpr int QuerySettingsEachMs = 1000;
-uint64 LastSettingsQueryMs = 0;
+TimeMs LastSettingsQueryMs = 0;
 
 void querySystemNotificationSettings() {
 	auto ms = getms(true);
